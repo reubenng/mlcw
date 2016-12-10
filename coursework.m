@@ -41,7 +41,7 @@ shading interp;
 colormap cool;
 hold on
 
-%% Bayes’ optimal boundary
+%% Bayesâ€™ optimal boundary
 
 % make a 3D array to elevate sample data to 0.5 prob
 classZ = zeros([100 3]);
@@ -52,7 +52,7 @@ plot3(class2(:,1),class2(:,2),classZ(:,3),'mx');
 contour3(X, Y, P2, [0.5 0.5], 'b'); % draw a line on contour at 0.5 prob
 
 view(3)
-title('Bayes’ optimal boundary');
+title('Bayesâ€™ optimal boundary');
 hold on
 
 %% contour line
@@ -70,7 +70,7 @@ allClass = [class1' class2'];
 
 target = [ones([1 100]) (zeros([1 100]))];
 
-net = feedforwardnet(1); % 20 hidden layers feedforward network
+net = feedforwardnet(5); % 20 hidden layers feedforward network
 
 net = train(net, allClass, target);
 view(net);
@@ -93,8 +93,23 @@ view(3) % view in 3D
 %% prob with samples
 %alpha(0);
 hold on
-contour3(span1, span2, reshape(output,length(X(:,1)),length(Y(:,1))), [0.5 0.5], 'r');
+contour3(span1, span2, reshape(output,length(X(:,1)),length(Y(:,1))), [0.5 0.5], 'r','DisplayName','Decision boundary with neural net');
 
 plot3(class1(:,1),class1(:,2),classZ(:,3),'r.');
 plot3(class2(:,1),class2(:,2),classZ(:,3),'mx');
 view(3)
+
+%%
+
+alpha(0)
+view(2)
+hold off
+%%
+
+contour3(X, Y, P2, [0.5 0.5], 'b','DisplayName','Bayes optimal boundary'); % draw a line on contour at 0.5 prob
+hold on
+contour3(span1, span2, reshape(output,length(X(:,1)),length(Y(:,1))), [0.5 0.5], 'r','DisplayName','Decision boundary with neural net');
+legend('show')
+plot3(class1(:,1),class1(:,2),classZ(:,3),'r.');
+plot3(class2(:,1),class2(:,2),classZ(:,3),'mx');
+view(2)
