@@ -1,2 +1,0 @@
-# mlcw
-Machine Learning Coursework
